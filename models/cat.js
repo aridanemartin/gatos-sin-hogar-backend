@@ -48,4 +48,29 @@ export class CatModel {
         const cat = await db.query(query, values);
         return cat[0];
     }
+
+    static async update(id, input){
+        const { 
+            name, 
+            gender, 
+            birthDate, 
+            locationId, 
+            breedId, 
+            hasChip, 
+            picture, 
+            description, 
+            hasPassedAway, 
+            spayedNeutered, 
+            medicalConditions, 
+            dietaryNeeds, 
+            clinicId
+        } = input;
+
+        const query = `UPDATE cat SET name = ?, gender = ?, birth_date = ?, location_id = ?, breed_id = ?, has_chip = ?, picture = ?, description = ?, has_passed_away = ?, spayed_neutered = ?, medical_conditions = ?, dietary_needs = ?, clinic_id = ? WHERE id = ?`;
+
+        const values = [name, gender, birthDate, locationId, breedId, hasChip, picture, description, hasPassedAway, spayedNeutered, medicalConditions, dietaryNeeds, clinicId, id];
+
+        const cat = await db.query(query, values);
+        return cat[0];
+    }
 }

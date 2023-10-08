@@ -1,13 +1,8 @@
-import express from "express";
-import cors from "cors";
-import "dotenv/config";
+import { createRestApiServer } from "./server/index.js" 
 import { createCatRouter } from "./routes/cat.js";
 import { CatModel } from "./models/Cat.js";
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
+const app = createRestApiServer();
 
 app.use("/cats", createCatRouter({ catModel: CatModel }));
 

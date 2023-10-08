@@ -9,7 +9,7 @@ export const createCatRouter = ({ catModel }) => {
     catRouter.get('/', catController.getAll);
     catRouter.get('/:id', catController.getById);
     catRouter.post('/', catController.create);
-    //catRouter.put('/:id', catController.update);
+    catRouter.put('/:id', catController.update);
     // catRouter.delete('/:id', catController.delete);
     
     return catRouter;
