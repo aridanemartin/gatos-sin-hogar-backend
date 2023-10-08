@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import db from "./db/db_connection.js";
 import { createCatRouter } from "./routes/cat.js";
 import { CatModel } from "./models/Cat.js";
 
