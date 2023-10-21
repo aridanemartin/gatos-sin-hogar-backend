@@ -17,7 +17,7 @@ export class ClinicModel {
     static async getById(id) {
         try {
             const clinic = await db.query('SELECT * FROM clinic WHERE id = ?', [id]);
-            return clinic[0];
+            return clinic[0][0];
         } catch (error) {
             console.error('Error fetching clinic:', error);
             throw error; 
@@ -59,7 +59,6 @@ export class ClinicModel {
             const values = [name, phone, email, address, id];
 
             const response = await db.query(query, values);
-            console.log(response)
 
             if (response[0].affectedRows == 0) return {};
             return ClinicModel.getById(id)

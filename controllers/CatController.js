@@ -18,7 +18,7 @@ export class CatController {
         try {
             const { id } = req.params;
             const response = await this.catModel.getById(id);
-            if (response?.length) res.json(response).status(200);
+            if (response) res.json(response).status(200);
             else res.status(404).json({ error: 'Cat not found' });
         } catch (error) {
             console.error(error);

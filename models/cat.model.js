@@ -17,7 +17,7 @@ export class CatModel {
     static async getById(id) {
         try {
             const cat = await db.query('SELECT * FROM cat WHERE id = ?', [id]);
-            return cat[0];
+            return cat[0][0];
         } catch (error) {
             console.error('Error fetching cat:', error);
             throw error; 
