@@ -76,10 +76,10 @@ export class CatModel {
     
             const values = [name, gender, birthDate, locationId, breedId, hasChip, picture, description, hasPassedAway, spayedNeutered, medicalConditions, dietaryNeeds, clinicId, id];
     
-            // TODO: Return updated object
             const response = await db.query(query, values);
-            console.log(response)
-            return [response[0], response[0].affectedRows > 0];
+
+            if (response[0].affectedRows == 0) return {};
+            return CatModel.getById(id)
         } catch (error) {
             console.error('Error updating cat:', error);
             throw error; 

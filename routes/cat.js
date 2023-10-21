@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { CatController } from "../controllers/CatController.js";
 
-export const createCatRouter = ({ catModel }) => {
+export const createCatRouter = ({ CatModel }) => {
     const catRouter = Router();
 
-    const catController = new CatController({ catModel });
+    const catController = new CatController({ CatModel });
 
     catRouter.get('/', catController.getAll);
     catRouter.get('/:id', catController.getById);
