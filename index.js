@@ -15,6 +15,8 @@ import { createBreedRouter } from "./routes/breed.router.js"
 import { BreedModel } from "./models/breed.model.js"
 import { createTaskRouter } from "./routes/task.router.js"
 import { TaskModel } from "./models/task.model.js"
+import { createLocationRouter } from "./routes/location.router.js"
+import { LocationModel } from "./models/location.model.js"
 
 const app = createRestApiServer();
 
@@ -26,6 +28,7 @@ app.use("/phones", createPhoneRouter({ PhoneModel }));
 app.use("/categories", createCategoryRouter({ CategoryModel }));
 app.use("/breeds", createBreedRouter({ BreedModel }));
 app.use("/tasks", createTaskRouter({ TaskModel }));
+app.use("/locations", createLocationRouter({ LocationModel }));
 
 
 const PORT = process.env.PORT || 3000;
