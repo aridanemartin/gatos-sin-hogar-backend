@@ -11,15 +11,18 @@ import { createPhoneRouter } from "./routes/phone.router.js"
 import { PhoneModel } from "./models/phone.model.js"
 import { createCategoryRouter } from "./routes/category.router.js"
 import { CategoryModel } from "./models/category.model.js"
+import { createBreedRouter } from "./routes/breed.router.js"
+import { BreedModel } from "./models/breed.model.js"
 
 const app = createRestApiServer();
 
 app.use("/cats", createCatRouter({ CatModel }));
-app.use("/clinics", createClinicRouter({ ClinicModel}));
-app.use("/vaccines", createVaccineRouter({ VaccineModel}));
-app.use("/volunteers", createVolunteerRouter({ VolunteerModel}));
-app.use("/phones", createPhoneRouter({ PhoneModel}));
-app.use("/categories", createCategoryRouter({ CategoryModel}));
+app.use("/clinics", createClinicRouter({ ClinicModel }));
+app.use("/vaccines", createVaccineRouter({ VaccineModel }));
+app.use("/volunteers", createVolunteerRouter({ VolunteerModel }));
+app.use("/phones", createPhoneRouter({ PhoneModel }));
+app.use("/categories", createCategoryRouter({ CategoryModel }));
+app.use("/breeds", createBreedRouter({ BreedModel }));
 
 
 const PORT = process.env.PORT || 3000;
