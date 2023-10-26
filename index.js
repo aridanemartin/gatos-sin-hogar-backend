@@ -9,6 +9,8 @@ import { createVolunteerRouter } from "./routes/volunteer.router.js"
 import { VolunteerModel } from "./models/volunteer.model.js"
 import { createPhoneRouter } from "./routes/phone.router.js"
 import { PhoneModel } from "./models/phone.model.js"
+import { createCategoryRouter } from "./routes/category.router.js"
+import { CategoryModel } from "./models/category.model.js"
 
 const app = createRestApiServer();
 
@@ -17,6 +19,7 @@ app.use("/clinics", createClinicRouter({ ClinicModel}));
 app.use("/vaccines", createVaccineRouter({ VaccineModel}));
 app.use("/volunteers", createVolunteerRouter({ VolunteerModel}));
 app.use("/phones", createPhoneRouter({ PhoneModel}));
+app.use("/categories", createCategoryRouter({ CategoryModel}));
 
 
 const PORT = process.env.PORT || 3000;
