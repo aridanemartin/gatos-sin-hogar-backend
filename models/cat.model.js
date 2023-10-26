@@ -1,9 +1,7 @@
 import db from "../db/db_connection.js"
 
-
 export class CatModel {
    
-
     static async getAll() {
         try {
             const cats = await db.query('SELECT * FROM cat');

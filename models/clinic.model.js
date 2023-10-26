@@ -1,9 +1,7 @@
 import db from "../db/db_connection.js"
 
-
 export class ClinicModel {
    
-
     static async getAll() {
         try {
             const clinics = await db.query('SELECT * FROM clinic');

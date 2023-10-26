@@ -1,9 +1,7 @@
 import db from "../db/db_connection.js"
 
-
 export class VaccineModel {
    
-
     static async getAll() {
         try {
             const vaccines = await db.query('SELECT * FROM vaccine');
