@@ -1,4 +1,3 @@
-import e from "express";
 import db from "../db/db_connection.js"
 
 export class VolunteerModel {
