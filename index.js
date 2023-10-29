@@ -30,9 +30,9 @@ app.use("/breeds", createBreedRouter({ BreedModel }));
 app.use("/tasks", createTaskRouter({ TaskModel }));
 app.use("/locations", createLocationRouter({ LocationModel }));
 
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
+  /* eslint-disable no-console */
   console.log(`✅ Server listening on port http://localhost:${PORT}`);
 });
 
