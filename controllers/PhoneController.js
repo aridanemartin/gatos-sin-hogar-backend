@@ -33,10 +33,9 @@ export class PhoneController {
             if (response) res.json(response).status(201);
             else res.status(404).json({ error: 'Could not create new phone' });
         } catch (error) {
-            //! Error might be caused by a foreign key constraint (volunteer_id not found) [should be handled in the front-end]
-            //! code: 'ER_NO_REFERENCED_ROW_2', errno: 1452, sqlState: '23000'
             console.error(error);
-            res.status(500).json({ error: 'Internal Server Error' });
+            if (error.errno == 1452) res.status(404).json({ error: 'Volunteer not found' });
+            else res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 

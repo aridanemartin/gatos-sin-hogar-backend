@@ -66,9 +66,6 @@ export class PhoneModel {
 
     static async delete(id){
         try {
-            //? Are we deleting the record with the phone ID or the volunteer ID?
-            //? If we delete the volunteer ID, we will have to delete all the phones associated with that volunteer
-            //? Should probably be controlled on VolunteerController
             const response = await db.query('DELETE FROM phone WHERE id = ?', [id]);
             return response[0].affectedRows > 0;
         } catch (error) {
