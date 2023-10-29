@@ -1,6 +1,5 @@
-import express from "express";
-import cors from "cors";
-import "dotenv/config";
+import express from 'express';
+import cors from 'cors';
 
 export const createRestApiServer = () => {
     const restApiServer = express();
@@ -8,5 +7,4 @@ export const createRestApiServer = () => {
     restApiServer.use(express.json());
 
     return restApiServer;
-}
-
+};
