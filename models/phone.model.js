@@ -28,7 +28,6 @@ export class PhoneModel {
             type,
             volunteer_id
         } = input;
-        //? Clinics only have 1 phone therefore they do not need connection to phone table?
         try {
             const query = `INSERT INTO phone (phone_number, type, volunteer_id) VALUES (?, ?, ?)`;
     
@@ -56,7 +55,11 @@ export class PhoneModel {
 
             const response = await db.query(query, values);
 
-            if (response[0].affectedRows == 0) return {};
+            if (response[0].affectedRows == 0) {
+                const notFoundError = new Error('Phone not found');
+                notFoundError.status = 404;
+                throw notFoundError; 
+            }
             return PhoneModel.getById(id)
         } catch (error) {
             console.error('Error updating phone:', error);

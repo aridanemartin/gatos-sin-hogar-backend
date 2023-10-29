@@ -44,7 +44,7 @@ export class CategoryController {
             const input = req.body;
             const response = await this.categoryModel.update(id, input);
             
-            if (response) res.json(response).status(200);
+            if (response.length) res.json(response).status(200);
             else res.status(404).json({ error: 'Category not found' });
         } catch (error) {
             console.error(error);

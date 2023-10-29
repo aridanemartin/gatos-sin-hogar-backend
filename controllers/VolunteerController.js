@@ -44,8 +44,7 @@ export class VolunteerController {
             const input = req.body;
             const response = await this.volunteerModel.update(id, input);
             
-            // ! If the response is an empty object, the volunteer was not found but status 200 is still returned
-            if (response) res.json(response).status(200);
+            if (response.length) res.json(response).status(200);
             else res.status(404).json({ error: 'Volunteer not found' });
         } catch (error) {
             console.error(error);
