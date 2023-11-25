@@ -5,7 +5,7 @@ export class VolunteerController {
 
     getAll = async (req, res) => {
         try {
-            const response = await this.volunteerModel.getAll();
+            const response = await this.volunteerModel.getAll(req);
             res.status(200).json(response);
         } catch (error) {
             console.error(error);

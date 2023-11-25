@@ -4,7 +4,8 @@ export class CatModel {
     static async getAll(req) {
         try {
             const { pageSize, page } = req.query;
-            const query = `SELECT * FROM cat LIMIT ${pageSize} OFFSET ${page}`;
+            const offset = (page - 1) * pageSize;
+            const query = `SELECT * FROM cat LIMIT ${pageSize} OFFSET ${offset}`;
             const cats = await db.query(query);
             return cats[0];
         } catch (error) {
