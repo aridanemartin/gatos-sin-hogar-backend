@@ -5,7 +5,8 @@ export class CatController {
 
     getAll = async (req, res) => {
         try {
-            const response = await this.catModel.getAll();
+            const response = await this.catModel.getAll(req);
+
             res.status(200).json(response);
         } catch (error) {
             console.error(error);

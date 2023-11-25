@@ -1,14 +1,15 @@
-import db from "../db/db_connection.js"
+import db from '../db/db_connection.js';
 
 export class CatModel {
-   
-    static async getAll() {
+    static async getAll(req) {
         try {
-            const cats = await db.query('SELECT * FROM cat');
+            const { pageSize, page } = req.query;
+            const query = `SELECT * FROM cat LIMIT ${pageSize} OFFSET ${page}`;
+            const cats = await db.query(query);
             return cats[0];
         } catch (error) {
             console.error('Error fetching cats:', error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -18,79 +19,110 @@ export class CatModel {
             return cat[0][0];
         } catch (error) {
             console.error('Error fetching cat:', error);
-            throw error; 
+            throw error;
         }
     }
 
-    static async create(input){
-        const { 
-            name, 
-            gender, 
-            birthDate, 
-            locationId, 
-            breedId, 
-            hasChip, 
-            picture, 
-            description, 
-            hasPassedAway, 
-            spayedNeutered, 
-            medicalConditions, 
-            dietaryNeeds, 
+    static async create(input) {
+        const {
+            name,
+            gender,
+            birthDate,
+            locationId,
+            breedId,
+            hasChip,
+            picture,
+            description,
+            hasPassedAway,
+            spayedNeutered,
+            medicalConditions,
+            dietaryNeeds,
             clinicId
         } = input;
 
         try {
             const query = `INSERT INTO cat (name, gender, birth_date, location_id, breed_id, has_chip, picture, description, has_passed_away, spayed_neutered, medical_conditions, dietary_needs, clinic_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    
-            const values = [name, gender, birthDate, locationId, breedId, hasChip, picture, description, hasPassedAway, spayedNeutered, medicalConditions, dietaryNeeds, clinicId];
-    
+
+            const values = [
+                name,
+                gender,
+                birthDate,
+                locationId,
+                breedId,
+                hasChip,
+                picture,
+                description,
+                hasPassedAway,
+                spayedNeutered,
+                medicalConditions,
+                dietaryNeeds,
+                clinicId
+            ];
+
             const cat = await db.query(query, values);
             return cat[0];
         } catch (error) {
             console.error('Error creating cat:', error);
-            throw error; 
+            throw error;
         }
     }
 
-    static async update(id, input){
-        const { 
-            name, 
-            gender, 
-            birthDate, 
-            locationId, 
-            breedId, 
-            hasChip, 
-            picture, 
-            description, 
-            hasPassedAway, 
-            spayedNeutered, 
-            medicalConditions, 
-            dietaryNeeds, 
+    static async update(id, input) {
+        const {
+            name,
+            gender,
+            birthDate,
+            locationId,
+            breedId,
+            hasChip,
+            picture,
+            description,
+            hasPassedAway,
+            spayedNeutered,
+            medicalConditions,
+            dietaryNeeds,
             clinicId
         } = input;
 
         try {
             const query = `UPDATE cat SET name = ?, gender = ?, birth_date = ?, location_id = ?, breed_id = ?, has_chip = ?, picture = ?, description = ?, has_passed_away = ?, spayed_neutered = ?, medical_conditions = ?, dietary_needs = ?, clinic_id = ? WHERE id = ?`;
-    
-            const values = [name, gender, birthDate, locationId, breedId, hasChip, picture, description, hasPassedAway, spayedNeutered, medicalConditions, dietaryNeeds, clinicId, id];
-    
+
+            const values = [
+                name,
+                gender,
+                birthDate,
+                locationId,
+                breedId,
+                hasChip,
+                picture,
+                description,
+                hasPassedAway,
+                spayedNeutered,
+                medicalConditions,
+                dietaryNeeds,
+                clinicId,
+                id
+            ];
+
             const response = await db.query(query, values);
 
             if (response[0].affectedRows == 0) return {};
-            return CatModel.getById(id)
+            return CatModel.getById(id);
         } catch (error) {
             console.error('Error updating cat:', error);
-            throw error; 
+            throw error;
         }
     }
 
-    static async delete(id){
+    static async delete(id) {
         try {
-            const response = await db.query('DELETE FROM cat WHERE id = ?', [id]);
+            const response = await db.query('DELETE FROM cat WHERE id = ?', [
+                id
+            ]);
             return response[0].affectedRows > 0;
         } catch (error) {
             console.error('Error deleting cat:', error);
-            throw error; 
+            throw error;
         }
     }
 }
