@@ -3,22 +3,21 @@ import db from '../db/db_connection.js';
 export class CatModel {
     static async getAll(req) {
         try {
-            const { pageSize, page } = req.query;
+            const { itemsPerPage, page, offset } = req.pagination;
 
             const countQuery = 'SELECT COUNT(*) as totalCount FROM cat';
             const countResult = await db.query(countQuery);
             const totalCount = countResult[0][0].totalCount;
-            const totalPages = Math.ceil(totalCount / pageSize);
+            const totalPages = Math.ceil(totalCount / itemsPerPage);
 
-            const offset = (page - 1) * pageSize;
-            const dataQuery = `SELECT * FROM cat LIMIT ${pageSize} OFFSET ${offset}`;
+            const dataQuery = `SELECT * FROM cat LIMIT ${itemsPerPage} OFFSET ${offset}`;
             const cats = await db.query(dataQuery);
 
             const result = {
                 data: cats[0],
                 pagination: {
                     page,
-                    pageSize,
+                    itemsPerPage,
                     totalCount,
                     totalPages
                 }

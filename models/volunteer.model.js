@@ -3,11 +3,27 @@ import db from '../db/db_connection.js';
 export class VolunteerModel {
     static async getAll(req) {
         try {
-            const { pageSize, page } = req.query;
-            const offset = (page - 1) * pageSize;
-            const query = `SELECT * FROM volunteer LIMIT ${pageSize} OFFSET ${offset}`;
-            const volunteers = await db.query(query);
-            return volunteers[0];
+            const { itemsPerPage, page, offset } = req.pagination;
+
+            const countQuery = 'SELECT COUNT(*) as totalCount FROM volunteer';
+            const countResult = await db.query(countQuery);
+            const totalCount = countResult[0][0].totalCount;
+            const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+            const dataQuery = `SELECT * FROM volunteer LIMIT ${itemsPerPage} OFFSET ${offset}`;
+            const volunteers = await db.query(dataQuery);
+
+            const result = {
+                data: volunteers[0],
+                pagination: {
+                    page,
+                    itemsPerPage,
+                    totalCount,
+                    totalPages
+                }
+            };
+
+            return result;
         } catch (error) {
             console.error('Error fetching volunteers:', error);
             throw error;
