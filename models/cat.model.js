@@ -3,7 +3,7 @@ import db from '../db/db_connection.js';
 export class CatModel {
     static async getAll(req) {
         try {
-            const { itemsPerPage, page, offset } = req.pagination;
+            const { currentPage, itemsPerPage, offset } = req.pagination;
 
             const countQuery = 'SELECT COUNT(*) as totalCount FROM cat';
             const countResult = await db.query(countQuery);
@@ -16,7 +16,7 @@ export class CatModel {
             const result = {
                 data: cats[0],
                 pagination: {
-                    page,
+                    currentPage,
                     itemsPerPage,
                     totalCount,
                     totalPages
