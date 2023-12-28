@@ -43,7 +43,7 @@ export class ClinicController {
             const input = req.body;
             const response = await this.clinicModel.update(id, input);
 
-            if (response.length) res.status(200).json(response);
+            if (response) res.status(200).json(response);
             else res.status(404).json({ error: 'Clinic not found' });
         } catch (error) {
             console.error(error);

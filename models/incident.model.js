@@ -69,7 +69,7 @@ export class IncidentModel {
 
             const response = await db.query(query, values);
 
-            if (response[0].affectedRows == 0) return {};
+            if (response[0].affectedRows == 0) return null;
             return IncidentModel.getById(id);
         } catch (error) {
             console.error('Error updating incident:', error);

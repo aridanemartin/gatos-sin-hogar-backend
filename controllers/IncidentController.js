@@ -58,7 +58,7 @@ export class IncidentController {
             const input = req.body;
             const response = await this.incidentModel.update(id, input);
 
-            if (response.length) res.json(response).status(200);
+            if (response) res.json(response).status(200);
             else res.status(404).json({ error: 'Incident not found' });
         } catch (error) {
             console.error(error);

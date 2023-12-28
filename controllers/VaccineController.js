@@ -44,7 +44,7 @@ export class VaccineController {
             const input = req.body;
             const response = await this.vaccineModel.update(id, input);
 
-            if (response.length) res.status(200).json(response);
+            if (responseh) res.status(200).json(response);
             else res.status(404).json({ error: 'Vaccine not found' });
         } catch (error) {
             console.error(error);
