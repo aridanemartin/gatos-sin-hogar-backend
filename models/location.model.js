@@ -25,12 +25,12 @@ export class LocationModel {
     }
 
     static async create(input) {
-        const { name, coords, description } = input;
+        const { name, description, x_coord: xCoord, y_coord: yCoord } = input;
 
         try {
-            const query = `INSERT INTO location (name, coords, description) VALUES (?, ?, ?)`;
+            const query = `INSERT INTO location (name, description, x_coord, y_coord) VALUES (?, ?, ?, ?)`;
 
-            const values = [name, coords, description];
+            const values = [name, description, xCoord, yCoord];
 
             const location = await db.query(query, values);
             return location[0];
@@ -41,12 +41,12 @@ export class LocationModel {
     }
 
     static async update(id, input) {
-        const { name, coords, description } = input;
+        const { name, description, x_coord: xCoord, y_coord: yCoord } = input;
 
         try {
-            const query = `UPDATE location SET name = ?, coords = ?, description = ? WHERE id = ?`;
+            const query = `UPDATE location SET name = ?, description = ?, x_coord = ?, y_coord = ? WHERE id = ?`;
 
-            const values = [name, coords, description, id];
+            const values = [name, description, xCoord, yCoord, id];
 
             const response = await db.query(query, values);
 
