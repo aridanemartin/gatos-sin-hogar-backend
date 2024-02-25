@@ -52,13 +52,14 @@ export class CatModel {
             description,
             hasPassedAway,
             spayedNeutered,
+            hasLeukemia,
             medicalConditions,
             dietaryNeeds,
             clinicId
         } = input;
 
         try {
-            const query = `INSERT INTO cat (name, gender, birth_date, location_id, breed_id, has_chip, picture, description, has_passed_away, spayed_neutered, medical_conditions, dietary_needs, clinic_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            const query = `INSERT INTO cat (name, gender, birth_date, location_id, breed_id, has_chip, picture, description, has_passed_away, spayed_neutered, has_leukemia, medical_conditions, dietary_needs, clinic_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
             const values = [
                 name,
@@ -71,6 +72,7 @@ export class CatModel {
                 description,
                 hasPassedAway,
                 spayedNeutered,
+                hasLeukemia,
                 medicalConditions,
                 dietaryNeeds,
                 clinicId
@@ -96,13 +98,14 @@ export class CatModel {
             description,
             hasPassedAway,
             spayedNeutered,
+            hasLeukemia,
             medicalConditions,
             dietaryNeeds,
             clinicId
         } = input;
 
         try {
-            const query = `UPDATE cat SET name = ?, gender = ?, birth_date = ?, location_id = ?, breed_id = ?, has_chip = ?, picture = ?, description = ?, has_passed_away = ?, spayed_neutered = ?, medical_conditions = ?, dietary_needs = ?, clinic_id = ? WHERE id = ?`;
+            const query = `UPDATE cat SET name = ?, gender = ?, birth_date = ?, location_id = ?, breed_id = ?, has_chip = ?, picture = ?, description = ?, has_passed_away = ?, spayed_neutered = ?, has_leukemia = ?, medical_conditions = ?, dietary_needs = ?, clinic_id = ? WHERE id = ?`;
 
             const values = [
                 name,
@@ -115,6 +118,7 @@ export class CatModel {
                 description,
                 hasPassedAway,
                 spayedNeutered,
+                hasLeukemia,
                 medicalConditions,
                 dietaryNeeds,
                 clinicId,
