@@ -15,8 +15,8 @@ import { createTaskRouter } from './routes/task.router.js';
 import { TaskModel } from './models/task.model.js';
 import { createLocationRouter } from './routes/location.router.js';
 import { LocationModel } from './models/location.model.js';
-import { createIncidentRouter } from './routes/incident.router.js';
-import { IncidentModel } from './models/incident.model.js';
+// import { createIncidentRouter } from './routes/incident.router.js'; //TODO: implement later
+// import { IncidentModel } from './models/incident.model.js';
 import { createGenderRouter } from './routes/gender.router.js';
 import { GenderModel } from './models/gender.model.js';
 
@@ -30,7 +30,7 @@ app.use('/categories', createCategoryRouter({ CategoryModel }));
 app.use('/breeds', createBreedRouter({ BreedModel }));
 app.use('/tasks', createTaskRouter({ TaskModel }));
 app.use('/locations', createLocationRouter({ LocationModel }));
-app.use('/incidents', createIncidentRouter({ IncidentModel }));
+// app.use('/incidents', createIncidentRouter({ IncidentModel })); //TODO: implement later
 app.use('/genders', createGenderRouter({ GenderModel }));
 
 const PORT = process.env.PORT || 3000;

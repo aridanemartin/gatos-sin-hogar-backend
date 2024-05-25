@@ -1,5 +1,11 @@
 import db from '../db/db_connection.js';
+import AWS from 'aws-sdk';
 
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION
+});
 export class CatModel {
     static async getAll(req) {
         try {
@@ -143,6 +149,36 @@ export class CatModel {
             return response[0].affectedRows > 0;
         } catch (error) {
             console.error('Error deleting cat:', error);
+            throw error;
+        }
+    }
+
+    static async uploadImage(req, id) {
+        try {
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: `images/${id}`,
+                Body: req.file.buffer,
+                ContentType: req.file.mimetype
+            };
+            const data = await s3.upload(params).promise();
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    static async deleteImage(id) {
+        try {
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: `images/${id}`
+            };
+            const data = await s3.deleteObject(params).promise();
+            return data;
+        } catch (error) {
+            console.error(error);
             throw error;
         }
     }
