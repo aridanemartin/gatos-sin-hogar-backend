@@ -42,4 +42,4 @@ jobs:
                       sudo docker load --input ~/gatos-sin-hogar-backend.tar
                       sudo docker stop gatos-sin-hogar-backend || true
                       sudo docker rm gatos-sin-hogar-backend || true
-                      sudo docker run -d --name gatos-sin-hogar-backend -p 80:7000 gatos-sin-hogar-backend
+                      sudo docker run --env-file .env -d --name gatos-sin-hogar-backend -p 80:7000 gatos-sin-hogar-backend
