@@ -39,7 +39,7 @@ jobs:
                   key: ${{ secrets.EC2_KEY }}
                   script: |
                       sudo systemctl status docker || sudo systemctl start docker
-                      docker load -i < ~/gatos-sin-hogar-backend.tar
+                      docker load --input ~/gatos-sin-hogar-backend.tar
                       docker stop gatos-sin-hogar-backend || true
                       docker rm gatos-sin-hogar-backend || true
                       docker run -d --name gatos-sin-hogar-backend -p 80:7000 gatos-sin-hogar-backend
