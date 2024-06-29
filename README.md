@@ -13,6 +13,14 @@ This project has a frontend repository related
 
 To have in mind:
 
+Ubuntu doesn't accept RSA keys by default
+
+1. Edit /etc/ssh/sshd_config using `sudo nano`
+2. Add this line at the end of the file `CASignatureAlgorithms +ssh-rsa`
+
 User from EC2 needs permissions to interact with Docker
 (Run this command in EC2 for troubleshooting)
 sudo usermod -aG docker $USER
+
+CONNECT TO INSTANCE
+`ssh -i "gatos-sin-hogar.pem" ubuntu@ec2-18-133-76-236.eu-west-2.compute.amazonaws.com`
