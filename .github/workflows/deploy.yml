@@ -20,7 +20,7 @@ jobs:
               run: docker build -t gatos-sin-hogar-backend .
 
             - name: Save Docker image to a tar file
-              run: docker save gatos-sin-hogar-backend > ~/gatos-sin-hogar-backend.tar
+              run: docker save gatos-sin-hogar-backend > backend
 
             - name: Copy Docker image to EC2
               uses: appleboy/scp-action@v0.1.7
@@ -39,7 +39,7 @@ jobs:
                   key: ${{ secrets.EC2_KEY }}
                   script: |
                       sudo systemctl status docker || sudo systemctl start docker
-                      sudo docker load --input ~/gatos-sin-hogar-backend.tar
+                      sudo docker load --input ~/backend/gatos-sin-hogar-backend.tar
                       sudo docker stop gatos-sin-hogar-backend || true
                       sudo docker rm gatos-sin-hogar-backend || true
                       sudo docker run -d --name gatos-sin-hogar-backend -p 80:7000 gatos-sin-hogar-backend
