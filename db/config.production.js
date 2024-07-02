@@ -1,6 +1,6 @@
 export const config = {
-    host: 'localhost',
-    port: 3306,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     user: 'root',
     password: process.env.DB_PASSWORD,
     database: 'gatos_sin_hogar'
