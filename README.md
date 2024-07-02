@@ -24,3 +24,9 @@ sudo usermod -aG docker $USER
 
 CONNECT TO INSTANCE
 `ssh -i "gatos-sin-hogar.pem" ubuntu@ec2-18-133-76-236.eu-west-2.compute.amazonaws.com`
+
+GRANT PRIVILEGES TO THE USER TO CONNECT FROM DOCKER
+
+`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-node-app-container`
+
+You need to add privileges to an user to connect to this specific port of docker container.
