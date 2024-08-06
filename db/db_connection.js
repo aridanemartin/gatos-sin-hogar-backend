@@ -2,12 +2,18 @@ import mysql from 'mysql2/promise';
 import { logEnvironment } from '../utils/logger.js';
 
 const env = process.env.NODE_ENV || 'development';
-console.log('===env==>', env);
-const dbConfig = await import(`./config.${env}.js`);
+let db;
 
-logEnvironment();
+try {
+    const dbConfig = await import(`./config.${env}.js`);
 
-const pool = mysql.createPool(dbConfig.config);
+    logEnvironment();
 
-const db = await pool.getConnection();
+    const pool = mysql.createPool(dbConfig.config);
+
+    db = await pool.getConnection();
+} catch (error) {
+    console.error('Error connecting to the database:', error);
+}
+
 export default db;

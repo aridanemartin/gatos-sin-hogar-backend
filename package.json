@@ -5,8 +5,15 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "start": "node --watch index.js",
+        "start:docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d",
+        "start:docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
+        "start:clean:docker:dev": "npm run clean:docker:dev && npm run start:docker:dev",
+        "start:clean:docker:prod": "npm run clean:docker:prod && npm run start:docker:prod",
+        "start": "node --env-file=.env --watch index.js",
         "start:dev": "node --env-file=.env --watch index.js",
+        "clean:docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down -v --rmi all --remove-orphans",
+        "clean:docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down -v --rmi all --remove-orphans",
+        "clean:docker:all": "npm run clean:docker:dev && npm run clean:docker:prod",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -22,6 +29,8 @@
     "devDependencies": {
         "eslint": "^8.52.0",
         "eslint-config-airbnb-base": "^15.0.0",
-        "eslint-plugin-import": "^2.28.1"
+        "eslint-plugin-import": "^2.28.1",
+        "prettier": "^3.3.3",
+        "prettier-plugin-sql": "^0.18.1"
     }
 }
