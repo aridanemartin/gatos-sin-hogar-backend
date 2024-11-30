@@ -17,8 +17,10 @@ export class CatController {
     getById = async (req, res) => {
         try {
             const { id } = req.params;
-            const response = await this.catModel.getById(id);
+            const response = await this.catModel.getById(id);   
             if (response) res.status(200).json(response);
+
+
             else res.status(404).json({ error: 'Cat not found' });
         } catch (error) {
             console.error(error);
@@ -65,11 +67,24 @@ export class CatController {
         }
     };
 
+    getImageById = async (req, res) => {
+        try {
+            const { id } = req.params;
+            const data = await this.catModel.getImage(id);
+
+            res.status(200).json(data);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    };
+
     uploadImage = async (req, res) => {
         try {
             if (!req.file) {
                 return res.status(400).json({ error: 'No file uploaded' });
             }
+
             const { id } = req.params;
             const response = await this.catModel.uploadImage(req, id);
             if (response) res.status(200).json(response);

@@ -1,11 +1,10 @@
 import db from '../db/db_connection.js';
-import AWS from 'aws-sdk';
+import {
+    uploadImage,
+    getImage,
+    deleteImage
+} from '../services/imageService.js';
 
-const s3 = new AWS.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION
-});
 export class CatModel {
     static async getAll(req) {
         try {
@@ -18,6 +17,13 @@ export class CatModel {
 
             const dataQuery = `SELECT * FROM cat LIMIT ${itemsPerPage} OFFSET ${offset}`;
             const cats = await db.query(dataQuery);
+
+            const catIds = cats[0].map((cat) => cat.id);
+            const catPictures = await CatModel.getImages(catIds);
+
+            for (const cat of cats[0]) {
+                cat.picture = catPictures[cat.id] || null;
+            }
 
             const result = {
                 data: cats[0],
@@ -39,6 +45,12 @@ export class CatModel {
     static async getById(id) {
         try {
             const cat = await db.query('SELECT * FROM cat WHERE id = ?', [id]);
+
+            if (cat[0][0].picture) {
+                const catPicture = await getImage(id);
+                cat[0][0].picture = catPicture;
+            }
+
             return cat[0][0];
         } catch (error) {
             console.error('Error fetching cat:', error);
@@ -155,30 +167,58 @@ export class CatModel {
 
     static async uploadImage(req, id) {
         try {
-            const params = {
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: `images/${id}`,
-                Body: req.file.buffer,
-                ContentType: req.file.mimetype
-            };
-            const data = await s3.upload(params).promise();
-            return data;
+            const imageUrl = await uploadImage(req.file, id);
+            return { imageUrl };
         } catch (error) {
-            console.error(error);
             throw error;
         }
     }
 
+    static async getImage(id) {
+        try {
+            const cat = await db.query('SELECT picture FROM cat WHERE id = ?', [
+                id
+            ]);
+            if (!cat[0][0] || !cat[0][0].picture) {
+                return null;
+            }
+
+            const r2ImageSignedUrl = await getImage(id);
+            return r2ImageSignedUrl;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async getImages(ids) {
+        const placeholders = ids.map(() => '?').join(',');
+        const query = `SELECT id, picture FROM cat WHERE id IN (${placeholders})`;
+        const cats = await db.query(query, ids);
+
+        const imageUrls = {};
+        for (const cat of cats[0]) {
+            if (cat.picture) {
+                try {
+                    const r2ImageSignedUrl = await getImage(cat.id);
+                    imageUrls[cat.id] = r2ImageSignedUrl;
+                } catch (error) {
+                    console.error(
+                        `Error fetching image for cat ${cat.id}:`,
+                        error
+                    );
+                }
+            }
+        }
+
+        return imageUrls;
+    }
+
     static async deleteImage(id) {
         try {
-            const params = {
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: `images/${id}`
-            };
-            const data = await s3.deleteObject(params).promise();
+            const data = await deleteImage(id);
             return data;
         } catch (error) {
-            console.error(error);
+            console.error('Error deleting image:', error);
             throw error;
         }
     }

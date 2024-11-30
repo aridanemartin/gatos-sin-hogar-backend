@@ -16,9 +16,19 @@ export const createCatRouter = ({ CatModel }) => {
     catRouter.post('/', catController.create);
     catRouter.post(
         '/upload-image/:id',
-        upload.single('image'),
+        upload.single('picture'),
+        (err, _, res, next) => {
+            if (err) {
+                console.error('Multer error:', err.message);
+                return res
+                    .status(500)
+                    .send('Error during file upload: ' + err.message);
+            }
+            next();
+        },
         catController.uploadImage
     );
+    catRouter.get('/image/:id', catController.getImageById);
     catRouter.put('/:id', catController.update);
     catRouter.delete('/:id', catController.delete);
     catRouter.delete('/delete-image/:id', catController.deleteImage);

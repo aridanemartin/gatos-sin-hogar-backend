@@ -2,6 +2,7 @@ import mysql from 'mysql2/promise';
 import { logEnvironment } from '../utils/logger.js';
 
 const env = process.env.NODE_ENV || 'development';
+
 let db;
 
 try {
