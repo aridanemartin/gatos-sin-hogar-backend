@@ -6,6 +6,7 @@ import {
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import NodeCache from 'node-cache';
 import r2 from './s3client/s3client.js';
+import { resetLog, yellowLog } from '../utils/logger.js';
 
 // Create a cache instance with a default TTL (time-to-live) of 1 hour
 const imageCache = new NodeCache({ stdTTL: 3600 });
@@ -34,6 +35,10 @@ export const uploadImage = async (file, id) => {
 export const getImage = async (id) => {
     const cachedImageUrl = imageCache.get(id);
     if (cachedImageUrl) {
+        console.log(
+            yellowLog,
+            `Image with id ${id} returned from cache` + resetLog
+        );
         return cachedImageUrl;
     }
 
