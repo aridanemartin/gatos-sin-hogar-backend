@@ -2,7 +2,7 @@
     "name": "gatos-sin-hogar-backend",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "src/index.js",
     "type": "module",
     "scripts": {
         "start:docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d",
@@ -10,7 +10,7 @@
         "start:clean:docker:dev": "npm run clean:docker:dev && npm run start:docker:dev",
         "start:clean:docker:prod": "npm run clean:docker:prod && npm run start:docker:prod",
         "start": "node --env-file=.env --watch index.js",
-        "start:dev": "cross-env NODE_ENV=development node --env-file=.env --watch index.js",
+        "start:dev": "cross-env NODE_ENV=development node --env-file=.env --watch src/index.js",
         "clean:docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down -v --rmi all --remove-orphans",
         "clean:docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down -v --rmi all --remove-orphans",
         "clean:docker:all": "npm run clean:docker:dev && npm run clean:docker:prod",

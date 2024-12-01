@@ -1,2 +1,11 @@
 {
+    "workbench.editor.customLabels.patterns": {
+        "/components/": "${filename}.${extname} - Components 🎮",
+        "/src/core//application/": "${filename}.${extname} - App 🎯",
+        "/src/core//application/use-cases/": "${filename}.${extname} - Use Case 📦",
+        "/src/core//domain/": "${filename}.${extname} - Domain 👨‍💼",
+        "/src/core//domain/models/": "${filename}.${extname} - Models 🗽",
+        "/src/core//infra/": "${filename}.${extname} - Infra 🛠️",
+        "/src/middlewares/*": "${filename} - Middlewares 🧩"
+    }
 }
