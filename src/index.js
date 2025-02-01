@@ -19,8 +19,10 @@ import { LocationModel } from './models/location.model.js';
 // import { IncidentModel } from './models/incident.model.js';
 import { createGenderRouter } from './routes/gender.router.js';
 import { GenderModel } from './models/gender.model.js';
+import { morganMiddleware } from './server/logger.js';
 
 const app = createRestApiServer();
+app.use(morganMiddleware);
 
 app.use('/cats', createCatRouter({ CatModel }));
 app.use('/clinics', createClinicRouter({ ClinicModel }));

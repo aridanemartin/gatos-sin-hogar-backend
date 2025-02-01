@@ -1,7 +1,7 @@
 export const config = {
-    host: process.env.DB_HOST, // Name of docker Service instead of 'localhost'
+    host: process.env.DB_HOST,
     port: process.env.DB_PORT,
-    user: 'root',
+    user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'gatos_sin_hogar'
+    database: process.env.DB_NAME
 };

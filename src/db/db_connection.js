@@ -11,7 +11,6 @@ try {
     logEnvironment();
 
     const pool = mysql.createPool(dbConfig.config);
-
     db = await pool.getConnection();
 } catch (error) {
     console.error('Error connecting to the database:', error);
