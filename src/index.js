@@ -15,15 +15,20 @@ import { createTaskRouter } from './routes/task.router.js';
 import { TaskModel } from './models/task.model.js';
 import { createLocationRouter } from './routes/location.router.js';
 import { LocationModel } from './models/location.model.js';
+import cookieParser from 'cookie-parser';
+
 // import { createIncidentRouter } from './routes/incident.router.js'; //TODO: implement later
 // import { IncidentModel } from './models/incident.model.js';
 import { createGenderRouter } from './routes/gender.router.js';
 import { GenderModel } from './models/gender.model.js';
 import { morganMiddleware } from './server/logger.js';
+import { createAuthRouter } from './routes/auth.router.js';
 
 const app = createRestApiServer();
 app.use(morganMiddleware);
+app.use(cookieParser());
 
+app.use('/auth', createAuthRouter());
 app.use('/cats', createCatRouter({ CatModel }));
 app.use('/clinics', createClinicRouter({ ClinicModel }));
 app.use('/volunteers', createVolunteerRouter({ VolunteerModel }));

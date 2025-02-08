@@ -58,26 +58,25 @@ export class CatModel {
         }
     }
 
-    static async create(input) {
-        const {
-            name,
-            gender,
-            birthDate,
-            locationId,
-            breedId,
-            hasChip,
-            picture,
-            description,
-            hasPassedAway,
-            spayedNeutered,
-            hasLeukemia,
-            medicalConditions,
-            dietaryNeeds,
-            clinicId
-        } = input;
-
+    static async create({
+        name,
+        gender,
+        birthDate,
+        locationId,
+        breedId,
+        hasChip,
+        picture,
+        description,
+        personality,
+        hasPassedAway,
+        spayedNeutered,
+        hasLeukemia,
+        medicalConditions,
+        dietaryNeeds,
+        clinicId
+    }) {
         try {
-            const query = `INSERT INTO cat (name, gender, birth_date, location_id, breed_id, has_chip, picture, description, has_passed_away, spayed_neutered, has_leukemia, medical_conditions, dietary_needs, clinic_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            const query = `INSERT INTO cat (name, gender, birth_date, location_id, breed_id, has_chip, picture, description, personality, has_passed_away, spayed_neutered, has_leukemia, medical_conditions, dietary_needs, clinic_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
             const values = [
                 name,
@@ -88,6 +87,7 @@ export class CatModel {
                 hasChip,
                 picture,
                 description,
+                personality,
                 hasPassedAway,
                 spayedNeutered,
                 hasLeukemia,
@@ -114,6 +114,7 @@ export class CatModel {
             hasChip,
             picture,
             description,
+            personality,
             hasPassedAway,
             spayedNeutered,
             hasLeukemia,
@@ -123,7 +124,7 @@ export class CatModel {
         } = input;
 
         try {
-            const query = `UPDATE cat SET name = ?, gender = ?, birth_date = ?, location_id = ?, breed_id = ?, has_chip = ?, picture = ?, description = ?, has_passed_away = ?, spayed_neutered = ?, has_leukemia = ?, medical_conditions = ?, dietary_needs = ?, clinic_id = ? WHERE id = ?`;
+            const query = `UPDATE cat SET name = ?, gender = ?, birth_date = ?, location_id = ?, breed_id = ?, has_chip = ?, picture = ?, description = ?, personality = ?, has_passed_away = ?, spayed_neutered = ?, has_leukemia = ?, medical_conditions = ?, dietary_needs = ?, clinic_id = ? WHERE id = ?`;
 
             const values = [
                 name,
@@ -134,6 +135,7 @@ export class CatModel {
                 hasChip,
                 picture,
                 description,
+                personality,
                 hasPassedAway,
                 spayedNeutered,
                 hasLeukemia,

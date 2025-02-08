@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { BreedController } from "../controllers/BreedController.js";
+import { Router } from 'express';
+import { BreedController } from '../controllers/BreedController.js';
 
 export const createBreedRouter = ({ BreedModel }) => {
     const breedRouter = Router();
@@ -11,6 +11,6 @@ export const createBreedRouter = ({ BreedModel }) => {
     breedRouter.post('/', breedController.create);
     breedRouter.put('/:id', breedController.update);
     breedRouter.delete('/:id', breedController.delete);
-    
+
     return breedRouter;
-}
+};
