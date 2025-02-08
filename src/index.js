@@ -15,6 +15,7 @@ import { createTaskRouter } from './routes/task.router.js';
 import { TaskModel } from './models/task.model.js';
 import { createLocationRouter } from './routes/location.router.js';
 import { LocationModel } from './models/location.model.js';
+import { AuthModel } from './models/auth.model.js';
 import cookieParser from 'cookie-parser';
 
 // import { createIncidentRouter } from './routes/incident.router.js'; //TODO: implement later
@@ -28,7 +29,7 @@ const app = createRestApiServer();
 app.use(morganMiddleware);
 app.use(cookieParser());
 
-app.use('/auth', createAuthRouter());
+app.use('/auth', createAuthRouter({ AuthModel }));
 app.use('/cats', createCatRouter({ CatModel }));
 app.use('/clinics', createClinicRouter({ ClinicModel }));
 app.use('/volunteers', createVolunteerRouter({ VolunteerModel }));

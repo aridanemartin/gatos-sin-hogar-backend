@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export class AuthModel {
-    loginWithGoogle = async (token) => {
+    static async loginWithGoogle(token) {
         try {
             const ticket = await client.verifyIdToken({
                 idToken: token,
@@ -43,5 +43,5 @@ export class AuthModel {
             console.error(error);
             throw new Error('Authentication failed');
         }
-    };
+    }
 }

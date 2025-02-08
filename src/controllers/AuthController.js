@@ -1,7 +1,13 @@
 export class AuthController {
+    constructor({ AuthModel }) {
+        this.authModel = AuthModel;
+    }
+
     loginWithGoogle = async (req, res) => {
         try {
-            const response = await AuthModel.loginWithGoogle(req.body.token);
+            const accessToken = await this.authModel.loginWithGoogle(
+                req.body.token
+            );
 
             res.cookie('accessToken', accessToken, {
                 httpOnly: true,
@@ -9,7 +15,7 @@ export class AuthController {
                 maxAge: 3600000 // 1 hour
             });
 
-            res.status(200).json(response);
+            res.status(200).json({ message: 'Login exitoso' });
         } catch (error) {
             console.error(error);
             res.status(401).json({ message: 'Autenticación fallida' });
